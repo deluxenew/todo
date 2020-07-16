@@ -1,0 +1,46 @@
+.card {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background-color: darkgrey;
+    margin: 10px;
+
+
+    &__header {
+        padding: 10px;
+        display: flex;
+
+        background-color: grey;
+
+        &_title {
+            text-transform: uppercase;
+            width: 200px;
+        }
+
+        &_status {
+            background-color: red;
+        }
+    }
+    &__main {
+        padding: 10px;
+    }
+
+    &__footer {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        &_buttons {
+            display: flex;
+            justify-content: space-between;
+
+            &-item {
+                margin-left: 5px;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+            }
+        }
+    }
+}

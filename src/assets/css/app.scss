@@ -1,0 +1,48 @@
+//system
+@import 'system/mixin';
+@import 'system/var';
+
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    margin: 0 auto;
+    width: 1060px;
+    @media (max-width: 1024px) {
+        width: 100%;
+    }
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+    margin: 0 auto;
+
+    .todo-head {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 2px solid gray;
+        margin-bottom: 10px;
+
+        &__name {
+            h1 {
+
+            }
+        }
+
+        &__filter {
+
+        }
+
+        &__buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}

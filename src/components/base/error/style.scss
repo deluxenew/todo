@@ -1,0 +1,14 @@
+.form-error {
+    display: block;
+
+    &__item {
+        display: block;
+        margin-top: 6px;
+        color: $error;
+        font-size: $err_fs;
+
+        & + & {
+            margin-top: 4px;
+        }
+    }
+}

@@ -1,0 +1,35 @@
+.dropdown-block {
+    position: fixed;
+    z-index: 3;
+    display: none;
+    max-width: 100vw;
+    width: 420px;
+    border: 1px solid $gray_4;
+    border-radius: $bdrs_1;
+    background-color: #fff;
+    box-shadow: $shadow_1;
+    color: $gray_8;
+    text-align: left;
+    font-size: $fz_2;
+
+    &__inner {
+        padding: 8px 12px;
+        @include scrollbar($gray_6);
+    }
+
+    &_open {
+        display: block;
+    }
+
+    &_250 {
+        width: 250px;
+    }
+
+    &_280 {
+        width: 280px;
+    }
+
+    &_300 {
+        width: 300px;
+    }
+}

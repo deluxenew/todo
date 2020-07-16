@@ -1,0 +1,173 @@
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    display: block;
+    overflow-y: auto;
+    outline: 0;
+    background-color: transparentize(#000, .5);
+
+    overscroll-behavior: none;
+
+    &_s {
+        .modal__dialog {
+            max-width: 500px;
+        }
+    }
+
+    &_l {
+        .modal__dialog {
+            max-width: 990px;
+        }
+    }
+
+    &__dialog {
+        position: relative;
+        margin: 180px auto;
+        max-width: 550px;
+        transition: .17s all;
+    }
+
+    &__content {
+        position: relative;
+        background-color: #fff;
+    }
+
+    &__title {
+        margin: 0;
+        font-weight: bold;
+        font-size: 40px;
+        line-height: 1;
+    }
+
+    &__close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        opacity: .5;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &__header {
+        position: relative;
+        padding: 70px 70px 12px;
+    }
+
+    &__body {
+        position: relative;
+        padding: 30px;
+
+        p:first-child {
+            margin-top: 0;
+        }
+    }
+
+    .input-text-page {
+        background-color: #f9f9f9;
+    }
+}
+
+.modal-close {
+    &__icon {
+        cursor: pointer;
+
+        stroke: #fff;
+
+        &_small {
+            display: none;
+        }
+    }
+}
+
+.modal-open {
+    overflow: hidden;
+
+    .modal {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .template-content {
+        z-index: auto;
+    }
+}
+
+.modal-comment .ql-editor {
+    min-height: 200px;
+}
+
+.modal-enter-active, .modal-leave-active {
+    transition: opacity .04s;
+}
+
+.modal-enter, .modal-leave-to {
+    opacity: 0;
+
+    .modal {
+        &__dialog {
+            opacity: 0;
+            transform: translate(0, -25%);
+        }
+    }
+}
+
+@include sm {
+    .modal {
+        &__close {
+            right: -60px;
+        }
+    }
+}
+
+@include xs {
+    .modal {
+        &__dialog {
+            margin-top: 0;
+        }
+
+        &__content {
+            border-radius: 0;
+        }
+
+        &__title {
+            font-size: 28px;
+        }
+
+        &__header {
+            padding: 32px 32px 12px;
+        }
+
+        &__body {
+            padding: 0 32px 32px;
+        }
+    }
+
+    .modal-close {
+        &__icon {
+            width: 32px;
+            height: 32px;
+
+            fill: $white;
+
+            &_small {
+                display: block;
+            }
+
+            &_big {
+                display: none;
+            }
+        }
+    }
+}
+
+

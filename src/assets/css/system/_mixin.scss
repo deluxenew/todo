@@ -1,0 +1,35 @@
+@mixin tlg {
+    @media all and (max-width: map_get($breaks, tablet_lg)) {
+        @content
+    }
+}
+@mixin tmd {
+    @media all and (max-width: map_get($breaks, tablet_md)) {
+        @content
+    }
+}
+@mixin tsm {
+    @media all and (max-width: map_get($breaks, tablet_sm)) {
+        @content
+    }
+}
+@mixin m {
+    @media all and (max-width: map_get($breaks, mobile)) {
+        @content
+    }
+}
+@mixin md {
+    @media all and (max-width: map_get($breaks, mobile_md)) {
+        @content
+    }
+}
+@mixin sm {
+    @media all and (max-width: map_get($breaks, mobile_sm)) {
+        @content
+    }
+}
+@mixin xs {
+    @media all and (max-width: map_get($breaks, mobile_xs)) {
+        @content
+    }
+}
