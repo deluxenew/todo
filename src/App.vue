@@ -218,31 +218,26 @@
                     name: 'По работе',
                     cards: [
                         {
-                            card_id: 0,
                             name: '1. Создать группу',
                             text: 'Создать новую группу "На выходных"',
                             status: false,
                         },
                         {
-                            card_id: 1,
                             name: '2. Создать карточку',
                             text: 'Создать в группе "На выходных" карточку "Прогуляться" с описанием "Сходить в парк"',
                             status: false,
                         },
                         {
-                            card_id: 2,
                             name: '3. Перетащить карточку',
                             text: 'Перетащить\n карточку\n "Прогуляться"\n в группу\n "По работе"',
                             status: false,
                         },
                         {
-                            card_id: 3,
                             name: '4. Уалить карточку "Прогуляться"',
                             text: 'Мы на работе не по парку гуляем, а работаем...',
                             status: false,
                         },
                         {
-                            card_id: 4,
                             name: '5. Уалить группу "На выходных"',
                             text: 'С сегодняшнего дня работаем без выходных... :-)',
                             status: false,
@@ -302,7 +297,6 @@
                 const current = this.current_group;
 
                 this.groups[current].cards.push({
-                    card_id: this.groups[current].cards.length,
                     name: this.card_name,
                     text: this.card_text,
                     status: false,
