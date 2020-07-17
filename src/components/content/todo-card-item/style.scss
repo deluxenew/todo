@@ -5,25 +5,45 @@
     justify-content: space-between;
     width: 300px;
     min-height: 200px;
-    background-color: darkgrey;
+    color: $white;
+    background-color: $accent_gray;
     margin: 10px;
 
+    @include m {
+        width: 100%;
+    }
 
     &__header {
         padding: 10px;
         display: flex;
-
-        background-color: grey;
+        background-color: $second_gray;
 
         &_title {
+            color: $white;
             text-transform: uppercase;
             width: 200px;
+            word-break: break-all;
         }
 
-        &_status {
-            background-color: red;
+        &_status-ok {
+            text-align: center;
+            padding: 5px;
+            background-color: $succes;
+            color: $white;
+            height: 30px;
+            width: 110px;
+        }
+
+        &_status-not {
+            text-align: center;
+            width: 110px;
+            padding: 5px;
+            background-color: $error;
+            color: $white;
+            height: 30px;
         }
     }
+
     &__main {
         padding: 10px;
         word-break: break-word;
@@ -35,6 +55,7 @@
         width: 100%;
         position: relative;
         bottom: 0;
+
         &_buttons {
             display: flex;
             justify-content: space-between;
@@ -42,11 +63,23 @@
             &-item {
                 margin-left: 5px;
 
+                .btn {
+                    width: 95px;
+                }
+
                 &:first-child {
                     margin-left: 0;
                 }
-
             }
         }
+    }
+}
+
+.drag {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    @include m {
+        width: 100%;
     }
 }

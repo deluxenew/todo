@@ -5,19 +5,8 @@
     border: 1px solid $third_gray;
     transition: 0.2s;
 
-    &.is-error {
-        color: $accent_light;
-        border-color: $accent_light;
-    }
-
     &:hover, &:focus {
         color: $accent_black;
         border-color: $accent_black;
-    }
-}
-
-.agreement__checkbox {
-    &.is-error {
-        border-color: $accent_light;
     }
 }

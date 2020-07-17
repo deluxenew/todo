@@ -3,10 +3,9 @@
 @import 'system/var';
 
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: $base_font;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
     margin: 0 auto;
     width: 1060px;
     @media (max-width: 1024px) {
@@ -22,6 +21,5 @@
 
 .container {
     margin: 0 auto;
-
-
+    min-width: 320px;
 }

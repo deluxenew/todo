@@ -1,17 +1,13 @@
 .header {
     width: 100%;
-
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid $accent_gray;
     margin-bottom: 10px;
 
     &__name {
         display: flex;
         justify-content: space-between;
-        border-bottom: 1px solid gray;
+        border-bottom: 1px solid $accent_gray;
         margin-bottom: 20px;
-        h1 {
-
-        }
     }
 
     &__filter {
@@ -19,11 +15,10 @@
         justify-content: space-around;
         margin: 10px;
         padding: 10px;
-        border: 1px dashed gray;
-    }
+        border: 1px dashed $accent_gray;
 
-    &__buttons {
-        display: flex;
-        justify-content: flex-end;
+        @include tsm {
+            display: block;
+        }
     }
 }

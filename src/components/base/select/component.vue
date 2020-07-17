@@ -11,7 +11,6 @@
                 :class="classes"
                 :placeholder="sel_data[0].title"
             >
-
                 <option
                     v-for="(item, index) in sel_data"
                     :key="index"
@@ -86,13 +85,16 @@
                 this.$emit('change', val.value);
                 this.show_context = false;
             },
+
             showContext(value) {
                 this.show_context = !value;
             },
+
             onSelectHover() {
                 this.on_hover = !this.on_hover;
                 this.added_class = 'selectric-hover';
             },
+
             onSelectLeave() {
                 this.added_class = '';
             },

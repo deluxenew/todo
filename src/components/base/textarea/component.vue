@@ -26,10 +26,6 @@
                 type: [Number, String],
                 default: '',
             },
-            validate: {
-                type: Object,
-                default: () => {},
-            },
             placeholder: {
                 type: String,
                 default: '',
@@ -45,13 +41,7 @@
         },
         computed: {
             classes() {
-                const current = ['input-text'];
-
-                if (this.validate && this.validate.$error) {
-                    current.push('input-text_error');
-                    current.push('has-error');
-                }
-
+                const current = ['input-textarea'];
                 return current;
             },
         },

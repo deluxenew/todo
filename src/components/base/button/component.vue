@@ -2,7 +2,6 @@
     <button
         :class="classes"
         :type="type"
-        :modal="modal"
         name="button"
         @click="$emit('click')"
     >
@@ -21,10 +20,6 @@
             type: {
                 type: String,
                 default: 'button',
-            },
-            modal: {
-                type: String,
-                default: '',
             },
         },
     };

@@ -12,7 +12,7 @@
                                 aria-label="Close"
                                 @click="close"
                             >
-                                <close class="modal-close__icon modal-close__icon_big" aria-hidden="true" />
+                                <p-close class="modal-close__icon modal-close__icon_big" />
                             </button>
 
                             <div v-if="title" class="modal__header">
@@ -26,10 +26,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="modal-outer js-modal-block">
-                        <slot name="outer" />
-                    </div>
                 </div>
             </template>
         </transition>
@@ -37,12 +33,11 @@
 </template>
 
 <script type="text/javascript">
-    import close from '../../../assets/img/svg/close.svg';
 
     export default {
         name: 'Modal',
         components: {
-            close,
+            'p-close': () => import('../../../assets/img/svg/close.svg'),
         },
         props: {
             value: {

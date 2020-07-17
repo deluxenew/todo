@@ -4,6 +4,7 @@
     height: 50px;
     font-size: 15px;
     line-height: 1;
+    min-width: 50px;
     text-align: center;
     text-decoration: none;
     border: 1px solid transparent;
@@ -39,45 +40,11 @@
         svg {
             fill: $white;
         }
-    }
 
-    &_text {
-        min-width: 0;
-        padding-right: 10px;
-        padding-left: 10px;
-        font-size: 15px;
-        line-height: 100%;
-        color: $accent_black;
-        text-decoration-line: underline;
-    }
-
-    &-close {
-        width: 44px;
-        height: 44px;
-        line-height: 44px;
-        position: absolute;
-        right: 0;
-        top: 0;
-        opacity: 0.8;
-        background: transparent;
-        cursor: pointer;
-        border: 0;
-        z-index: 1046;
-        overflow: visible;
-        display: block;
-        outline: none;
-        padding: 0;
-        &:hover,
-        &:focus {
-            opacity: 1;
+        &:disabled {
+           background-color: $third_gray;
         }
-
-        &:active {
-            top: 1px;
-        }
-
     }
-
 }
 
 

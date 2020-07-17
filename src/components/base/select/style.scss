@@ -159,14 +159,6 @@ $selectric-inner-height:    $selectric-height - ($selectric-border-width * 2) !d
         }
     }
 
-    .disabled {
-        filter: alpha(opacity=50);
-        opacity: 0.5;
-        cursor: default !important;
-        background: none !important;
-        color: #666 !important;
-        user-select: none;
-    }
 
     .selectric-group {
         .selectric-group-label {
@@ -191,7 +183,6 @@ $selectric-inner-height:    $selectric-height - ($selectric-border-width * 2) !d
 
 /* purgecss end ignore */
 .selectric-wrapper {
-
     &.selectric-hover, &.selectric-focus {
         .selectric {
             border: 1px solid $accent_black;

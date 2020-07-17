@@ -10,7 +10,6 @@
             @focus="focus"
         >
         <slot />
-
     </div>
 </template>
 
@@ -26,10 +25,6 @@
                 type: [Number, String],
                 default: '',
             },
-            validate: {
-                type: Object,
-                default: () => {},
-            },
             placeholder: {
                 type: String,
                 default: '',
@@ -42,12 +37,6 @@
         computed: {
             classes() {
                 const current = ['input-text'];
-
-                if (this.validate && this.validate.$error) {
-                    current.push('input-text_error');
-                    current.push('has-error');
-                }
-
                 return current;
             },
         },
@@ -56,6 +45,7 @@
                 const value = e.target.value || '';
                 this.$emit('input', value.toString());
             },
+
             focus(e) {
                 this.$emit('focus', e);
             },

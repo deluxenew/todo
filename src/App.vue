@@ -8,12 +8,14 @@
                         :placeholder="'Фильтр-поиск'"
                     />
                 </template>
+
                 <template v-slot:select>
                     <p-base-select
                         :sel_data="complete"
                         @change="filterOnComplete"
                     />
                 </template>
+
                 <template v-slot:addgroup>
                     <p-base-button
                         :classes="'btn btn_filled-blue'"
@@ -34,6 +36,7 @@
                 <template v-slot:head>
                     {{ group.name }}
                 </template>
+
                 <template v-slot:buttons>
                     <p-base-button
                         :classes="'btn btn_filled-blue'"
@@ -44,6 +47,7 @@
                     >
                         Добавить карточку
                     </p-base-button>
+
                     <p-base-button
                         :classes="'btn btn_filled'"
                         @click="deleteGroup(),
@@ -85,9 +89,10 @@
                                             {{ item.status ? 'Вернуть в работу' : 'Завершить' }}
                                         </p-base-button>
                                     </div>
+
                                     <div class="card__footer_buttons-item">
                                         <p-base-button
-                                            :classes="'btn btn_filled-blue'"
+                                            :classes="'btn btn_filled'"
                                             @click="deleteCard(),
                                                     current_group = group.group_id,
                                                     current_card = index,
@@ -102,51 +107,64 @@
                     </drop>
                 </div>
             </p-content-todo-card-list>
+
             <p-content-footer>
                 Могу сделать не на слотах, а используя вложенность компонентов, передавая данные через пропсы от
                 родителей к детям и прокидывая данные через $emit от детей к родителям. Слоты,
                 на мой взгляд, лучше подходят для решения этой задачи.
             </p-content-footer>
+
             <p-popup-modal
                 v-model="modal"
                 :title="modal_title"
+                :close_by_background="true"
                 @input="onClose"
             >
                 <div v-if="new_group">
                     Введите название новой группы
                     <p-base-text
-                        v-model="group_name"
+                        v-model.trim="group_name"
+                        :placeholder="'Введите название *'"
                     />
                     <p-base-button
                         :classes="'btn btn_filled-blue'"
+                        :disabled="group_name === ''"
                         @click="addNewGroup"
                     >
                         Добавить
                     </p-base-button>
                 </div>
+
                 <div v-else-if="new_card">
                     Введите название новой карточки
                     <p-base-text
-                        v-model="card_name"
+                        v-model.trim="card_name"
+                        :placeholder="'Введите название *'"
                     />
+
                     Введите описание новой карточки
                     <p-base-textarea
                         v-model="card_text"
+                        :placeholder="'Введите описание *'"
                     />
+
                     <p-base-button
                         :classes="'btn btn_filled-blue'"
+                        :disabled="card_name === ''"
                         @click="addNewCard"
                     >
                         Добавить
                     </p-base-button>
                 </div>
+
                 <div v-else-if="confirm_group_delete">
                     <p-base-button
-                        :classes="'btn btn_filled-blue'"
+                        :classes="'btn btn_filled'"
                         @click="confirmAction"
                     >
                         ДА
                     </p-base-button>
+
                     <p-base-button
                         :classes="'btn btn_filled-blue'"
                         @click="cancelAction"
@@ -154,13 +172,15 @@
                         НЕТ
                     </p-base-button>
                 </div>
+
                 <div v-else-if="confirm_card_delete">
                     <p-base-button
-                        :classes="'btn btn_filled-blue'"
+                        :classes="'btn btn_filled'"
                         @click="confirmAction"
                     >
                         ДА
                     </p-base-button>
+
                     <p-base-button
                         :classes="'btn btn_filled-blue'"
                         @click="cancelAction"
@@ -214,8 +234,8 @@
             ],
             complete: [
                 { value: null, title: 'Не выбрано' },
-                { value: true, title: 'Выполнено' },
-                { value: false, title: 'В работе' },
+                { value: true, title: 'Сделано' },
+                { value: false, title: 'Не сделано' },
             ],
             filter: '',
             sel_filter: null,
@@ -257,16 +277,21 @@
                     name: this.group_name,
                     cards: [],
                 });
+                this.group_name = '';
             },
 
             addNewCard() {
                 const current = this.current_group;
+
                 this.groups[current].cards.push({
                     card_id: this.groups[current].cards.length,
                     name: this.card_name,
                     text: this.card_text,
                     status: false,
                 });
+
+                this.card_name = '';
+                this.card_text = '';
             },
 
             cancelAction() {
@@ -279,6 +304,7 @@
                 } else if (this.confirm_card_delete) {
                     this.groups[this.current_group].cards.splice(this.current_card, 1);
                 }
+
                 this.onClose(false);
             },
 
@@ -298,6 +324,7 @@
 
             handleDrop(toList, data) {
                 const fromList = data.list;
+
                 if (fromList) {
                     toList.push(data.item);
                     fromList.splice(fromList.indexOf(data.item), 1);
@@ -306,7 +333,7 @@
             },
 
             onDragover() {
-                this.background = 'gray';
+                this.background = '#27ae60';
             },
 
             onDragleave() {
