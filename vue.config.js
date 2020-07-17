@@ -1,6 +1,19 @@
 const path = require('path');
 
 module.exports = {
+    publicPath: 'http://arhitector44.myjino.ru/todo/',
+    productionSourceMap: false,
+    css: {
+        extract: false,
+    },
+    configureWebpack: {
+        optimization: {
+            splitChunks: false,
+        },
+        output: {
+            filename: 'js/todo.js',
+        },
+    },
     chainWebpack: (config) => {
         const svgRule = config.module.rule('svg');
         const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
