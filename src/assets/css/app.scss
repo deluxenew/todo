@@ -23,26 +23,5 @@
 .container {
     margin: 0 auto;
 
-    .todo-head {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 2px solid gray;
-        margin-bottom: 10px;
 
-        &__name {
-            h1 {
-
-            }
-        }
-
-        &__filter {
-
-        }
-
-        &__buttons {
-            display: flex;
-            justify-content: flex-end;
-        }
-    }
 }

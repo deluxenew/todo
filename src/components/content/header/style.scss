@@ -1,0 +1,29 @@
+.header {
+    width: 100%;
+
+    border-bottom: 2px solid gray;
+    margin-bottom: 10px;
+
+    &__name {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid gray;
+        margin-bottom: 20px;
+        h1 {
+
+        }
+    }
+
+    &__filter {
+        display: flex;
+        justify-content: space-around;
+        margin: 10px;
+        padding: 10px;
+        border: 1px dashed gray;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

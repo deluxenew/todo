@@ -1,7 +1,10 @@
 .card {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 300px;
-    height: 200px;
+    min-height: 200px;
     background-color: darkgrey;
     margin: 10px;
 
@@ -23,11 +26,14 @@
     }
     &__main {
         padding: 10px;
+        word-break: break-word;
+        white-space: pre-line;
+        overflow: hidden;
     }
 
     &__footer {
         width: 100%;
-        position: absolute;
+        position: relative;
         bottom: 0;
         &_buttons {
             display: flex;

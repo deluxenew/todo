@@ -2,9 +2,6 @@
     <div>
         <input
             class="input"
-            :autocomplete="is_autocomplete"
-            :autofocus="autofocus"
-            :readonly="readonly"
             :class="classes"
             :placeholder="placeholder"
             :type="type"
@@ -37,27 +34,12 @@
                 type: String,
                 default: '',
             },
-            autofocus: {
-                type: Boolean,
-                default: false,
-            },
-            autocomplete: {
-                type: Boolean,
-                default: false,
-            },
             type: {
                 type: String,
                 default: 'text',
             },
-            readonly: {
-                type: Boolean,
-                default: false,
-            },
         },
         computed: {
-            is_autocomplete() {
-                return this.autocomplete ? 'on' : 'off';
-            },
             classes() {
                 const current = ['input-text'];
 

@@ -1,73 +1,64 @@
 <template>
     <div id="app">
         <div class="container">
-            <div class="todo-head">
-                <div class="todo-head__name">
-                    <h1>
-                        ToDo
-                    </h1>
-                </div>
-                <div class="todo-head__filter">
+            <p-content-header>
+                <template v-slot:text>
                     <p-base-text
                         v-model="filter"
                         :placeholder="'Фильтр-поиск'"
                     />
-                </div>
-                <div class="todo-head__filter">
+                </template>
+                <template v-slot:select>
                     <p-base-select
                         :sel_data="complete"
                         @change="filterOnComplete"
                     />
-                </div>
-                <div class="todo-head__buttons">
-                    <div class="todo-head__buttons_item">
-                        <p-base-button
-                            :classes="'btn btn_filled-blue'"
-                            @click="new_group = true, modal = true"
-                        >
-                            Добавить новую группу
-                        </p-base-button>
-                    </div>
-                </div>
-            </div>
+                </template>
+                <template v-slot:addgroup>
+                    <p-base-button
+                        :classes="'btn btn_filled-blue'"
+                        @click="new_group = true,
+                                modal = true,
+                                modal_title = 'Добавить новую группу'"
+                    >
+                        Добавить новую группу
+                    </p-base-button>
+                </template>
+            </p-content-header>
+
             <p-content-todo-card-list
                 v-for="group in groups"
-                :key="group.group_id"
                 :id="group.group_id"
+                :key="group.group_id"
             >
                 <template v-slot:head>
-                    <div
-                        class="group__head_name"
-                    >
-                        {{ group.name }}
-                    </div>
+                    {{ group.name }}
                 </template>
-
                 <template v-slot:buttons>
-                    <div
-                        class="group__head_buttons-item"
+                    <p-base-button
+                        :classes="'btn btn_filled-blue'"
+                        @click="new_card = true,
+                                modal = true,
+                                current_group = group.group_id,
+                                modal_title = 'Добавить новую карточку'"
                     >
-                        <p-base-button
-                            :classes="'btn btn_filled-blue'"
-                            @click="new_card = true, modal = true, current_group = group.group_id"
-                        >
-                            Добавить карточку
-                        </p-base-button>
-                    </div>
-                    <div class="group__head_buttons-item">
-                        <p-base-button
-                            :classes="'btn btn_filled'"
-                            @click="deleteGroup(group.group_id)"
-                        >
-                            Удалить группу
-                        </p-base-button>
-                    </div>
+                        Добавить карточку
+                    </p-base-button>
+                    <p-base-button
+                        :classes="'btn btn_filled'"
+                        @click="deleteGroup(),
+                                current_group = group.group_id,
+                                modal_title = `Удалить группу  ${group.name}?`"
+                    >
+                        Удалить группу
+                    </p-base-button>
                 </template>
 
                 <div
                     class="group__main"
                     :style="`background-color: ${background};`"
                     @dragover="onDragover"
+                    @dragend="onDragleave"
                     @drop="onDragleave"
                 >
                     <drop
@@ -75,17 +66,12 @@
                         @drop="handleDrop(group.cards, ...arguments)"
                     >
                         <drag
-                            v-for="(item, index) in sel_filter !== null ? group.cards
-                                .filter((el) => (el.name.toLowerCase().indexOf(filter.toLowerCase()) >= 0))
-                                .filter((el) => (el.status === sel_filter))
-                                : group.cards
-                                    .filter((el) => (el.name.toLowerCase().indexOf(filter.toLowerCase()) >= 0))"
+                            v-for="(item, index) in elementsOfGroup(group)"
                             :key="index"
                             class="drag"
-                            :transfer-data="{ item: item, list: group.cards }"
+                            :transfer-data="{ item, list: group.cards }"
                         >
                             <p-content-todo-card-item
-                                :id="item.card_id"
                                 :name="item.name"
                                 :text="item.text"
                                 :status="item.status"
@@ -100,14 +86,12 @@
                                         </p-base-button>
                                     </div>
                                     <div class="card__footer_buttons-item">
-                                        <p-base-button :classes="'btn btn_filled-blue'">
-                                            развернуть/скрыть
-                                        </p-base-button>
-                                    </div>
-                                    <div class="card__footer_buttons-item">
                                         <p-base-button
                                             :classes="'btn btn_filled-blue'"
-                                            @click="deleteCard(group.group_id, index)"
+                                            @click="deleteCard(),
+                                                    current_group = group.group_id,
+                                                    current_card = index,
+                                                    modal_title = `Удалить карточку ${item.name}?`"
                                         >
                                             Удалить
                                         </p-base-button>
@@ -118,17 +102,17 @@
                     </drop>
                 </div>
             </p-content-todo-card-list>
-            <div class="todo-foo">
-                Харчиков Александр, 2020
-            </div>
+            <p-content-footer>
+                Могу сделать не на слотах, а используя вложенность компонентов, передавая данные через пропсы от
+                родителей к детям и прокидывая данные через $emit от детей к родителям. Слоты,
+                на мой взгляд, лучше подходят для решения этой задачи.
+            </p-content-footer>
             <p-popup-modal
                 v-model="modal"
+                :title="modal_title"
                 @input="onClose"
             >
-                <div
-                    v-if="new_group"
-                    class="new_group"
-                >
+                <div v-if="new_group">
                     Введите название новой группы
                     <p-base-text
                         v-model="group_name"
@@ -140,16 +124,13 @@
                         Добавить
                     </p-base-button>
                 </div>
-                <div
-                    v-else-if="new_card"
-                    class="new_card"
-                >
+                <div v-else-if="new_card">
                     Введите название новой карточки
                     <p-base-text
                         v-model="card_name"
                     />
                     Введите описание новой карточки
-                    <p-base-text
+                    <p-base-textarea
                         v-model="card_text"
                     />
                     <p-base-button
@@ -159,22 +140,34 @@
                         Добавить
                     </p-base-button>
                 </div>
-                <div
-                    v-else-if="confirm"
-                    class="comfirm"
-                >
+                <div v-else-if="confirm_group_delete">
                     <p-base-button
                         :classes="'btn btn_filled-blue'"
+                        @click="confirmAction"
                     >
                         ДА
                     </p-base-button>
                     <p-base-button
                         :classes="'btn btn_filled-blue'"
+                        @click="cancelAction"
                     >
                         НЕТ
                     </p-base-button>
                 </div>
-
+                <div v-else-if="confirm_card_delete">
+                    <p-base-button
+                        :classes="'btn btn_filled-blue'"
+                        @click="confirmAction"
+                    >
+                        ДА
+                    </p-base-button>
+                    <p-base-button
+                        :classes="'btn btn_filled-blue'"
+                        @click="cancelAction"
+                    >
+                        НЕТ
+                    </p-base-button>
+                </div>
             </p-popup-modal>
         </div>
     </div>
@@ -186,11 +179,14 @@
     export default {
         name: 'App',
         components: {
+            'p-content-header': () => import('@c/header/component'),
+            'p-content-footer': () => import('@c/footer/component'),
             'p-content-todo-card-list': () => import('@c/todo-card-list/component'),
             'p-content-todo-card-item': () => import('@c/todo-card-item/component'),
             'p-base-button': () => import('@b/button/component'),
             'p-base-select': () => import('@b/select/component'),
             'p-base-text': () => import('@b/text/component'),
+            'p-base-textarea': () => import('@b/textarea/component'),
             'p-popup-modal': () => import('@p/modal/component'),
             Drag,
             Drop,
@@ -199,7 +195,7 @@
             groups: [
                 {
                     group_id: 0,
-                    name: 'по работе',
+                    name: 'По работе',
                     cards: [
                         {
                             card_id: 0, name: 'Задача 1', text: 'Сделать задачу надо.', status: false,
@@ -210,7 +206,7 @@
                         {
                             card_id: 2,
                             name: 'Задача 3',
-                            text: 'Сделать задачу тоже надо, нужно прямо быстро сделать...',
+                            text: 'Сделать \nзадачу \nтоже \nнадо, \nнужно \nпрямо \nбыстро \n сделать...',
                             status: false,
                         },
                     ],
@@ -224,23 +220,35 @@
             filter: '',
             sel_filter: null,
             current_group: 0,
+            current_card: 0,
+            modal_title: '',
             modal: false,
             new_group: false,
             new_card: false,
-            confirm: false,
+            confirm_group_delete: false,
+            confirm_card_delete: false,
             group_name: '',
             card_name: '',
             card_text: '',
             background: '',
         }),
-        computed: {
-
-        },
         methods: {
+            elementsOfGroup(val) {
+                return this.sel_filter !== null ? val.cards
+                    .filter((el) => (el.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0))
+                    .filter((el) => (el.status === this.sel_filter)) : val.cards
+                        .filter((el) => (el.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0));
+            },
+
             onClose(val) {
+                this.modal = val;
                 this.new_group = val;
                 this.new_card = val;
-                this.confirm = val;
+                this.confirm_group_delete = val;
+                this.confirm_card_delete = val;
+                this.group_name = '';
+                this.card_name = '';
+                this.card_text = '';
             },
 
             addNewGroup() {
@@ -261,13 +269,27 @@
                 });
             },
 
-            deleteGroup(val) {
-                this.groups.splice(val, 1);
+            cancelAction() {
+                this.onClose(false);
             },
 
-            deleteCard(group_id, val) {
-                console.log(group_id);
-                this.groups[group_id].cards.splice(val, 1);
+            confirmAction() {
+                if (this.confirm_group_delete) {
+                    this.groups.splice(this.current_group, 1);
+                } else if (this.confirm_card_delete) {
+                    this.groups[this.current_group].cards.splice(this.current_card, 1);
+                }
+                this.onClose(false);
+            },
+
+            deleteGroup() {
+                this.modal = true;
+                this.confirm_group_delete = true;
+            },
+
+            deleteCard() {
+                this.modal = true;
+                this.confirm_card_delete = true;
             },
 
             filterOnComplete(val) {
@@ -282,9 +304,11 @@
                     toList.sort((a, b) => a > b);
                 }
             },
+
             onDragover() {
                 this.background = 'gray';
             },
+
             onDragleave() {
                 this.background = 'white';
             },
