@@ -4,7 +4,7 @@
             <p-content-header>
                 <template v-slot:text>
                     <p-base-text
-                        v-model="filter"
+                        v-model.trim="filter"
                         :placeholder="'Фильтр-поиск'"
                     />
                 </template>
