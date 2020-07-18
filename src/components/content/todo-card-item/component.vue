@@ -9,6 +9,7 @@
             </div>
         </div>
         <div
+            :id="`id${id}`"
             class="card__main"
             :style="collapse ? 'max-height: 100%;' : 'max-height: 100px;'"
         >
@@ -19,10 +20,11 @@
                 <slot name="buttons" />
                 <div class="card__footer_buttons-item">
                     <p-base-button
+                        v-if="offset_height"
                         :classes="'btn btn_filled-blue'"
                         @click="collapse = !collapse"
                     >
-                        развернуть/скрыть
+                        {{ collapse ? 'Скрыть' : 'Развернуть' }}
                     </p-base-button>
                 </div>
             </div>
@@ -37,6 +39,10 @@
             'p-base-button': () => import('@b/button/component'),
         },
         props: {
+            id: {
+                type: Number,
+                default: 0,
+            },
             name: {
                 type: String,
                 default: '',
@@ -52,7 +58,12 @@
         },
         data: () => ({
             collapse: false,
+            offset_height: false,
         }),
+        mounted() {
+            const elmnt = document.getElementById(`id${this.id}`);
+            this.offset_height = elmnt.offsetHeight < elmnt.scrollHeight;
+        },
     };
 </script>
 

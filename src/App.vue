@@ -76,6 +76,7 @@
                             :transfer-data="{ item, list: group.cards }"
                         >
                             <p-content-todo-card-item
+                                :id="index"
                                 :name="item.name"
                                 :text="item.text"
                                 :status="item.status"

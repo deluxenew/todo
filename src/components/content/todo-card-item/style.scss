@@ -79,7 +79,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
     @include m {
         width: 100%;
     }
+    @include xs {
+        width: 340px
+    }
+
 }
